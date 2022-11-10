@@ -1,5 +1,5 @@
 ///////////////// CONFIG////////////////////////////////////////////
-let IS_PUBLISHED = false;
+let IS_PUBLISHED = true;
 const MAX_PLAYER = 4;
 const START_ZOMBIE = false;
 
@@ -10,6 +10,8 @@ const ZOMBIE_SKILL_DURATION = 5;
 
 const SURVIVOR_SKILL_COOLTIME = 15;
 const SURVIVOR_SKILL_DURATION = 5;
+
+const WIN_RANGE = 15;
 
 const ITEM_REGEN_SPEED = 10;
 
@@ -145,6 +147,9 @@ const GUI_SKILL_TEXT = "GUI_SKILL_TEXT";
 const GUI_IMG_Survivor = "GUI_IMG_Survivor";
 
 const GUI_HasItems = ["GUI_HasItem0" , "GUI_HasItem1" , "GUI_HasItem2" , "GUI_HasItem3"];
+
+const GUI_Zombie_HIDES = ["GUI_H1", "GUI_H2", "GUI_H3"];
+
 const GUI_WIN = "GUI_WIN";
 const GUI_LOSE = "GUI_LOSE";
 
@@ -284,15 +289,16 @@ function OnJoinPlayer(player) {
 
                     getObject(GUI_Quest).setText(
                         (this.IsSurvivor ? "좀비들에게서 도망치세요!\n제한 시간안에, 4개의 아이템을\n 모으세요!\n아이템을 가지고 백신 전송시설에 가세요!" 
-                                         : "플레이어 2명을 잡으세요!"), this.ui);
+                                         : "플레이어 1명을 잡으세요!"), this.ui);
                 } 
                 if(type == "ZombieInGame") {
+                    GUI_Zombie_HIDES.forEach(x=>getObject(x).hide(this.ui));
                     getObject(GUI_ZombieSkill).show(this.ui);
                     getObject(GUI_Quest).show(this.ui);
 
                     getObject(GUI_Quest).setText(
                         (this.IsSurvivor ? "좀비들에게서 도망치세요!\n제한 시간안에, 4개의 아이템을\n 모으세요!\n아이템을 가지고 백신 전송시설에 가세요!" 
-                                         : "플레이어 2명을 잡으세요!"), this.ui);
+                                         : "플레이어 1명을 잡으세요!"), this.ui);
                 } 
                 if(type == "Win") {
                     getObject(GUI_WIN + this.client_code).show(this.ui);
@@ -405,7 +411,7 @@ function OnJoinPlayer(player) {
                 });
 
                 // 승리 조건 판별
-                if((get_distance(land_mark_postion, this.obj.getPosition()) < 5)
+                if((get_distance(land_mark_postion, this.obj.getPosition()) < WIN_RANGE)
                 && this.hasItem[0]
                 && this.hasItem[1]
                 && this.hasItem[2]
@@ -476,7 +482,7 @@ function OnJoinPlayer(player) {
 
                 getObject(ZombiePointer + ((AllPlayers.indexOf(this.obj) + (START_ZOMBIE ? 2 : 1)) / 2)).goTo(
                     this.obj.getPosition().x,
-                    this.obj.getPosition().y + 3,
+                    this.obj.getPosition().y + 5,
                     this.obj.getPosition().z);
             }
         },
