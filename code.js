@@ -283,7 +283,7 @@ function OnJoinPlayer(player) {
                     getObject(GUI_IMG_Survivor).show(this.ui);
 
                     getObject(GUI_Quest).setText(
-                        (this.IsSurvivor ? "좀비를 피해 4개의 아이템을\n모아서 승리지점에 가자!" 
+                        (this.IsSurvivor ? "좀비들에게서 도망치세요!\n제한 시간안에, 4개의 아이템을\n 모으세요!\n아이템을 가지고 백신 전송시설에 가세요!" 
                                          : "플레이어 2명을 잡으세요!"), this.ui);
                 } 
                 if(type == "ZombieInGame") {
@@ -291,7 +291,7 @@ function OnJoinPlayer(player) {
                     getObject(GUI_Quest).show(this.ui);
 
                     getObject(GUI_Quest).setText(
-                        (this.IsSurvivor ? "좀비를 피해 4개의 아이템을\n모아서 승리지점에 가자!" 
+                        (this.IsSurvivor ? "좀비들에게서 도망치세요!\n제한 시간안에, 4개의 아이템을\n 모으세요!\n아이템을 가지고 백신 전송시설에 가세요!" 
                                          : "플레이어 2명을 잡으세요!"), this.ui);
                 } 
                 if(type == "Win") {
