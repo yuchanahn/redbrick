@@ -482,6 +482,7 @@ function OnJoinPlayer(player) {
         },
         OnKeyPress : function(key) {
             getObject(GUI_Debug_Panel).setText("[DEBUG] KeyPress : " + key, this.ui);
+            console.log("loglog");
             //if(key == KEY_DASH) {
             //    if(this.dash_cooltime_timer > 0) return;
             //    this.move_vel = this.vel;
