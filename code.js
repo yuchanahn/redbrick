@@ -1,5 +1,5 @@
 ///////////////// CONFIG////////////////////////////////////////////
-let IS_PUBLISHED = true;
+let IS_PUBLISHED = false;
 const MAX_PLAYER = 4;
 const START_ZOMBIE = false;
 
@@ -227,7 +227,7 @@ function OnJoinPlayer(player) {
         },
         GoToStartPoint : function() {
             const pos = this.IsSurvivor ? survivor_start_point : zombie_start_point;
-            this.obj.goTo(pos.x, pos.y + 5, pos.z);
+            this.obj.goTo(pos.x, pos.y + 1, pos.z);
         },
         UISetup : function() {
             // onClick 되야하는 GUI들은 따로 추가 함.
@@ -236,6 +236,7 @@ function OnJoinPlayer(player) {
                 getObject(GUI_LOSE + i).hide(this.ui);
                 getObject(GUI_MainMenu + i).hide(this.ui);
             }
+            getObject(GUI_SKILL_TEXT).hide(this.ui);
         },
         UIClear : function(func) {
             getObject(GUI_Timer).hide(this.ui);
@@ -309,18 +310,18 @@ function OnJoinPlayer(player) {
                     this.UIView(this.IsSurvivor ? "SurvivorInGame" : "ZombieInGame");
                     this.OnGameStart();
                     this.GoToStartPoint();
-                },this.ui);
+                }, this.ui);
             }
 
             if(type == "Win") {
-                getObject(GUI_WIN + this.client_code).onClick(()=> {
+                getObject(GUI_WIN + this.client_code).onClick( ()=> {
                     this.PlayerInit();
-                },this.ui);
+                }, this.ui);
             } 
             if(type == "Lose") {
-                getObject(GUI_LOSE + this.client_code).onClick(()=> {
-                    this.PlayerInit();
-                },this.ui);
+                getObject(GUI_LOSE + this.client_code).onClick( ()=> {
+                    this.PlayerInit(); 
+                }, this.ui);
             }
         },
         PlayerInit : function() {
@@ -331,7 +332,7 @@ function OnJoinPlayer(player) {
         OnGameStart : function() {
             this.is_game_started = true;
             this.timer = START_TIMER;
-            this.skill_cool_time = this.IsSurvivor ? 0 : 0;
+            this.skill_cool_time = 0;
             if(this.IsSurvivor) getObject(GUI_Timer).setText(this.timer, this.ui);
         },
         OnPlayerCenncet : function() {
@@ -480,7 +481,7 @@ function OnJoinPlayer(player) {
             }
         },
         OnKeyPress : function(key) {
-            getObject(GUI_Debug_Panel).setText("[" + this.id + "] KeyPress : " + key, this.ui);
+            getObject(GUI_Debug_Panel).setText("[DEBUG] KeyPress : " + key, this.ui);
             //if(key == KEY_DASH) {
             //    if(this.dash_cooltime_timer > 0) return;
             //    this.move_vel = this.vel;
