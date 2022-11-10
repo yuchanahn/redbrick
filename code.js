@@ -12,6 +12,7 @@ const SURVIVOR_SKILL_COOLTIME = 15;
 const SURVIVOR_SKILL_DURATION = 5;
 
 const WIN_RANGE = 15;
+const ITEM_RANGE = 2;
 
 const ITEM_REGEN_SPEED = 10;
 
@@ -384,7 +385,7 @@ function OnJoinPlayer(player) {
                 // 콜라이더 없어서 거리 체크 
                 
                 in_game_items.forEach(x=>{
-                    if(get_distance(getObject(x).getPosition(), this.obj.getPosition()) < 2) {
+                    if(get_distance(getObject(x).getPosition(), this.obj.getPosition()) < ITEM_RANGE) {
                         this.OnPlayerColied("item", getObject(x), in_game_items.indexOf(x));
                     }
                 });
