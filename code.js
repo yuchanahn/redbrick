@@ -19,6 +19,9 @@ const ITEM_REGEN_SPEED = 10;
 const elevator_dy = 60;
 const elevator_speed = 10;
 
+const Zombie_Speed = 0.9;
+const Survivor_Speed = 1;
+
 //////////////////////////// Key Input ////////////////////////////
 const KEY_DASH = "KeyX";
 const KEY_SKILL = "KeyC";
@@ -341,6 +344,7 @@ function OnJoinPlayer(player) {
             this.timer = START_TIMER;
             this.skill_cool_time = 0;
             if(this.IsSurvivor) getObject(GUI_Timer).setText(this.timer, this.ui);
+            else                this.obj.changePlayerSpeed(Zombie_Speed);
         },
         OnPlayerCenncet : function() {
             console.log("on player connect : id [" + this.id + "]");
@@ -474,7 +478,7 @@ function OnJoinPlayer(player) {
                 if(this.slow_skill_timer > 0) {
                     
                     this.slow_skill_timer -= fixed_delta_time;
-                    if(this.slow_skill_timer <= 0) this.obj.changePlayerSpeed(1);
+                    if(this.slow_skill_timer <= 0) this.obj.changePlayerSpeed(Zombie_Speed);
                 }
 
                 //////////////////////// Zombie //////////////////////////
