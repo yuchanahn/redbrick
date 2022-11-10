@@ -263,7 +263,7 @@ function OnJoinPlayer(player) {
             getObject(GUI_Timer).setText("", this.ui);
             
             getObject(GUI_Debug_Panel).setText("", this.ui);
-
+            GUI_Zombie_HIDES.forEach(x=>getObject(x).hide(this.ui));
             GUI_HasItems.forEach(x=>getObject(x).hide(this.ui));
 
             if(!isEmpty(func)) func();
@@ -282,18 +282,18 @@ function OnJoinPlayer(player) {
                     getObject(GUI_MainMenuBtn).show(this.ui);
                 } 
                 if(type == "SurvivorInGame") {
+                    GUI_Zombie_HIDES.forEach(x=>getObject(x).show(this.ui));
                     getObject(GUI_Timer).show(this.ui);
                     getObject(GUI_Quest).show(this.ui);
                     //getObject(GUI_Dash).show(this.ui);
                     getObject(GUI_SurvivorSkill).show(this.ui);
                     getObject(GUI_IMG_Survivor).show(this.ui);
-
+                    
                     getObject(GUI_Quest).setText(
                         (this.IsSurvivor ? "좀비들에게서 도망치세요!\n제한 시간안에, 4개의 아이템을\n 모으세요!\n아이템을 가지고 백신 전송시설에 가세요!" 
                                          : "플레이어 1명을 잡으세요!"), this.ui);
                 } 
                 if(type == "ZombieInGame") {
-                    GUI_Zombie_HIDES.forEach(x=>getObject(x).hide(this.ui));
                     getObject(GUI_ZombieSkill).show(this.ui);
                     getObject(GUI_Quest).show(this.ui);
 
